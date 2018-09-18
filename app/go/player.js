@@ -1,27 +1,26 @@
-var Player = {
+class Player {
+  constructor(username) {
+    this._username = username;
+    this._capturedStones = 0;
+  }
 
-  init: function(pseudo) {
-    this.pseudo: pseudo;
-    this.capturedStones: 0;
-  },
+  addCapturedStones(n) {
+    return this._capturedStones += n;
+  }
 
-  get pseudo() {
-    return this.pseudo;
+  get username() {
+    return this._username;
+  }
+  set username(username) {
+    this._username = username;
   }
 
   get capturedStones() {
-    return this.capturedStones;
+    return this._capturedStones;
   }
-
-  addCapturedStones: function(nb) {
-    capturedStones =+ nb;
+  set capturedStones(n) {
+    this._capturedStones = n;
   }
+}
 
-};
-
-// tests
-var player1 = Object.create(Player);
-joueur1.init("Joueur 1");
-
-var player2 = Object.create(Player);
-joueur2.init("Joueur 2");
+module.exports = Player;

@@ -1,10 +1,17 @@
+"user strict";
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
+const Room = require('./go/room.js');
+const Message = require('./go/message.js');
+// const Player = require("./go/player.js");
+
 var availableRooms = [];
+var playersByRoom = {};
 var messagesHistory = {};
 var nRooms = 1;
 
@@ -27,9 +34,9 @@ io.on('connection', function(socket) {
     io.to(socket.id).emit('available_rooms', availableRooms);
   });
   socket.on('new_room', function() {
-    var roomName = "Room " + nRooms;
-    var roomId = nRooms;
-    var room = {'id': roomId, 'name': roomName};
+    let roomName = "Room " + nRooms;
+    let roomId = nRooms;
+    let room = new Room(roomId, roomName);
     nRooms++;
     availableRooms.push(room);
     io.emit('new_room', room);
@@ -37,6 +44,10 @@ io.on('connection', function(socket) {
 
   socket.on('subscribe', function(room) {
     socket.join(room);
+    if (!playersByRoom[room]) playersByRoom[room] = 1;
+    else playersByRoom[room]++;
+    socket.username = "Player" + playersByRoom[room];
+    io.to(socket.id).emit('username', socket.username);
   });
   socket.on('unsubscribe', function(room) {
     socket.leave(room);
@@ -46,8 +57,9 @@ io.on('connection', function(socket) {
   });
   socket.on('new_message', function(msg, roomId) {
     if (!messagesHistory[roomId]) messagesHistory[roomId] = [];
-    messagesHistory[roomId].push(msg);
-    io.to(roomId).emit('new_message', msg, roomId);
+    let newMessage = new Message(msg.sender, msg.body);
+    messagesHistory[roomId].push(newMessage);
+    io.to(roomId).emit('new_message', newMessage, roomId);
   });
 });
 

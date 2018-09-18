@@ -1,8 +1,20 @@
-var Grid = {
+function Grid(width, height) {
+  this._height = height;
+  this._width = width;
 
-  init: function (width, height) {
-    this.width = width;
-    this.height = height;
-  },
+  get height() {
+    return this._height;
+  }
+  set height(height) {
+    this._height = height;
+  }
 
-};
+  get width() {
+    return this._width;
+  }
+  set width(width) {
+    this._width = width;
+  }
+}
+
+module.exports = Grid;

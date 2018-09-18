@@ -2,15 +2,18 @@
 <html>
   <head>
     <title>GoGame</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png" sizes="32x32">
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/static/js/jquery-3.3.1.slim.min.js"></script>
   </head>
-  <body>
+  <body class="loading">
+    <div class="load-container"><div class="loader"></div></div>
     <h1>Liste des parties</h1>
     <ul id="rooms-list">
       <li id="room-add"><a href="#">Créer une partie</a></li>
     </ul>
+    <script src="/static/js/client.js"></script>
     <script src="/static/js/client-index.js"></script>
   </body>
 </html>
