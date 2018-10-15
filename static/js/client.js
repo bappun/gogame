@@ -1,3 +1,8 @@
 function load() { $('body').addClass('loading'); }
 function loaded() { $('body').removeClass('loading'); }
-window.onbeforeunload = load;
+
+var socket = io();
+window.onbeforeunload = function() {
+  socket.emit('leave');
+  load();
+};

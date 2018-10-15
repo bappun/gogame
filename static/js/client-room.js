@@ -3,7 +3,6 @@ var createMessage = function(msg) {
 }
 
 $(function () {
-  var socket = io();
   var roomId = window.location.href.split("/").pop();
 
   socket.on('username', function(username) {
@@ -28,6 +27,7 @@ $(function () {
   socket.emit('subscribe', roomId);
   socket.emit('get_messages_history', roomId);
 
+  $('#m').focus();
   $('form').submit(function() {
     var body = $('#m').val();
     if (body) {

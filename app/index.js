@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 
 var express = require('express');
 var app = express();
@@ -11,7 +11,6 @@ const Message = require('./go/message.js');
 // const Player = require("./go/player.js");
 
 var availableRooms = [];
-var playersByRoom = {};
 var messagesHistory = {};
 var nRooms = 1;
 
@@ -25,7 +24,7 @@ app.get('/room/:id', function(req, res) {
   if (req.params.id >= nRooms) {
     res.status(404).send('Not found');
   } else {
-    res.sendFile(path.join(__dirname, '../templates/game.html'));
+    res.sendFile(path.join(__dirname, '../templates/room.html'));
   }
 });
 
@@ -44,14 +43,32 @@ io.on('connection', function(socket) {
 
   socket.on('subscribe', function(room) {
     socket.join(room);
-    if (!playersByRoom[room]) playersByRoom[room] = 1;
-    else playersByRoom[room]++;
-    socket.username = "Player" + playersByRoom[room];
+    let roomLength = io.sockets.adapter.rooms[room].length;
+    let gameRoom = 'game' + room;
+    let gameRoomLength = io.sockets.adapter.rooms[gameRoom] ? io.sockets.adapter.rooms[gameRoom].length : 0;
+    if (gameRoomLength < 2) {
+      if (gameRoomLength == 1) {
+        if (io.sockets.connected[Object.keys(io.sockets.adapter.rooms[gameRoom].sockets)[0]].username == "Player2") {
+          socket.username = "Player1";
+        } else {
+          socket.username = "Player2";
+        }
+      } else {
+        socket.username = "Player" + (gameRoomLength + 1);
+      }
+      socket.join(gameRoom);
+    } else {
+      socket.username = "Spec" + (roomLength - 2);
+    }
+
     io.to(socket.id).emit('username', socket.username);
   });
   socket.on('unsubscribe', function(room) {
     socket.leave(room);
   });
+  socket.on('leave', function() {
+    socket.disconnect();
+  })
   socket.on('get_messages_history', function(room) {
     io.to(socket.id).emit('messages_history', messagesHistory[room]);
   });

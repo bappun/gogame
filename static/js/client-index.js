@@ -1,9 +1,8 @@
 var createRoom = function(room) {
   $('#room-add').before('<li><a href="/room/' + room._id + '">' + room._name + '</a></li>');
 }
-$(function () {
-  var socket = io();
 
+$(function () {
   socket.on('available_rooms', function(availableRooms) {
     availableRooms.forEach(function(room) {
       createRoom(room);
