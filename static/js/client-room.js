@@ -40,4 +40,11 @@ $(function () {
     }
     return false;
   });
+
+  for(x = 0 ; x < 13; x++) {
+    $('#game').append('<div id="row-' + x + '" class="row"></div>')
+    for(y = 0 ; y < 13; y++) {
+      $('#row-' + x).append('<div class="cell" data-x="' + x + '" data-y="' + y + '"></div>');
+    }
+  }
 });
