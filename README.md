@@ -13,7 +13,7 @@ In the application, you are able to create different rooms containing a Go board
 - [ ] Go game
   - [x] Board and stones
   - [ ] Rules implementation
-  - [ ] Display scores
+  - [ ] Scores display
   - [ ] Start and end of the game handling
 
 
