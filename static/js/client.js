@@ -1,8 +1,13 @@
-function load() { $('body').addClass('loading'); }
-function loaded() { $('body').removeClass('loading'); }
+function load() {
+    $('body').addClass('loading');
+}
+
+function loaded() {
+    $('body').removeClass('loading');
+}
 
 var socket = io();
-window.onbeforeunload = function() {
-  socket.emit('leave');
-  load();
+window.onbeforeunload = function () {
+    socket.emit('leave');
+    load();
 };

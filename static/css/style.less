@@ -29,6 +29,7 @@
     rgba(0, 0, 0, 0) 90%
   );
 }
+
 .white-stone() {
   left: 0;
   box-sizing: border-box;
@@ -96,6 +97,7 @@
     }
   }
 }
+
 // END LOADER
 
 html {
@@ -105,6 +107,7 @@ html {
   color: @font-color;
   font-family: sans-serif;
 }
+
 body {
   margin: 0 auto;
   padding: 2em;
@@ -126,10 +129,12 @@ body {
     }
   }
 }
+
 a {
   color: @link-color;
   text-decoration: none;
 }
+
 ul#rooms-list {
   list-style: none;
   padding: 0;
@@ -162,6 +167,7 @@ ul#rooms-list {
     }
   }
 }
+
 #game {
   grid-row-start: 1;
   grid-row-end: 3;
@@ -174,37 +180,22 @@ ul#rooms-list {
   flex-direction: column;
 
   &.black > .row > .cell:not(.black):not(.white):hover {
-    &:after {
+    &::after {
       .black-stone;
       opacity: 0.5;
     }
-    &:before {
+    &::before {
       display: none;
     }
   }
 
   &.white > .row > .cell:not(.black):not(.white):hover {
-    &:after {
+    &::after {
       .white-stone;
       opacity: 0.5;
     }
-    &:before {
+    &::before {
       display: none;
-    }
-  }
-
-  &.black {
-    & > .row > .cell:hover {
-      &::after {
-        .black-stone;
-      }
-    }
-  }
-  &.white {
-    & > .row > .cell:hover {
-      &::after {
-        .white-stone;
-      }
     }
   }
 
@@ -214,7 +205,7 @@ ul#rooms-list {
 
     &:first-child {
       & > .cell {
-        &:before {
+        &::before {
           height: 50%;
           top: 50%;
         }
@@ -222,7 +213,7 @@ ul#rooms-list {
     }
     &:last-child {
       & > .cell {
-        &:before {
+        &::before {
           height: 50%;
           bottom: 50%;
         }
@@ -233,6 +224,23 @@ ul#rooms-list {
       flex: 1;
       position: relative;
       cursor: pointer;
+
+      &.black {
+        &::after {
+          .black-stone;
+        }
+        &::before {
+          display: none;
+        }
+      }
+      &.white {
+        &::after {
+          .white-stone;
+        }
+        &::before {
+          display: none;
+        }
+      }
 
       &::before, &::after {
         margin: auto;
@@ -245,28 +253,27 @@ ul#rooms-list {
         background-color: black;
       }
       &::after {
-        width: 100%;
         height: 1px;
       }
       &::before {
         width: 1px;
-        height: 100%;
       }
       &:first-child {
         &::after {
-          width: 50%;
           left: 50%;
+          margin-right: 0;
         }
       }
       &:last-child {
         &::after {
-          width: 50%;
           right: 50%;
+          margin-left: 0;
         }
       }
     }
   }
 }
+
 ul#messages {
   list-style-type: none;
   padding: 1em;
@@ -285,6 +292,7 @@ ul#messages {
     }
   }
 }
+
 form#message-input {
   margin-top: auto;
   display: flex;
@@ -305,6 +313,7 @@ form#message-input {
     background: @background;
   }
 }
+
 .text-small {
   color: @background-lighter;
   font-size: 0.7em;

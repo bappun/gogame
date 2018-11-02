@@ -15,16 +15,16 @@ In the application, you are able to create different rooms containing a Go board
   - [ ] Rules implementation
   - [ ] Scores display
   - [ ] Start and end of the game handling
+- [ ] Safe Client-Server code
 
 
 ## Installation
-
 You need `npm` and `node` to install and use the application.
 
 1. Clone the repository: `git clone https://github.com/bappun/gogame.git`
 2. Navigate to the folder: `cd gogame`
 3. Install dependencies: `npm install`
-4. Run the app: `npm run app`
+4. Run the app: `npm run app` (This command launches `run.sh` which compiles the .less file and starts the application)
 5. Go to `localhost:3000` in a browser
 
 Tested and working on `npm 6.4.1` and `node 10.12.0`

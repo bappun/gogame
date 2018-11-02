@@ -1,26 +1,28 @@
 class Player {
-  constructor(username) {
-    this._username = username;
-    this._capturedStones = 0;
-  }
+    constructor(username) {
+        this._username = username;
+        this._capturedStones = 0;
+    }
 
-  addCapturedStones(n) {
-    return this._capturedStones += n;
-  }
+    addCapturedStones(n) {
+        return this._capturedStones += n;
+    }
 
-  get username() {
-    return this._username;
-  }
-  set username(username) {
-    this._username = username;
-  }
+    get username() {
+        return this._username;
+    }
 
-  get capturedStones() {
-    return this._capturedStones;
-  }
-  set capturedStones(n) {
-    this._capturedStones = n;
-  }
+    set username(username) {
+        this._username = username;
+    }
+
+    get capturedStones() {
+        return this._capturedStones;
+    }
+
+    set capturedStones(n) {
+        this._capturedStones = n;
+    }
 }
 
 module.exports = Player;
